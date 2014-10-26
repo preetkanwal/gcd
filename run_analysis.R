@@ -7,7 +7,7 @@ trainLabel <- read.table("./train/y_train.txt", sep = "", colClasses = "factor")
 #binding the training activity label to the training dataset
 training[,562] <- trainLabel
 
-trainSubject <- read.table("./train/subject_train.txt", sep = "")
+trainSubject <- read.table("./train/subject_train.txt", sep = "", colClasses = "factor")
 #binding the training subject label to the dataset
 training[,563] <- trainSubject
 
@@ -20,7 +20,8 @@ testLabel <- read.table("./test/y_test.txt", sep = "", colClasses = "factor")
 #binding the test activity label to the test dataset
 test[,562] <- testLabel
 
-testSubject <- read.table("./test/subject_test.txt", sep = "")
+testSubject <- read.table("./test/subject_test.txt", sep = "", colClasses = "factor")
+
 #binding the test subject label to the dataset
 test[,563] <- testSubject
 
@@ -55,10 +56,10 @@ mergeData <- mergeData[,reqdCols]
 #changing column names of merge data to more descriptive column names
 colnames(mergeData) <- c(features$measureName, "Activity", "Subject")
 
-mergeData$Subject <- as.factor(mergeData$Subject)
 
-tidyData <- aggregate(mergeData, by = list(mergeData$Activity, mergeData$Subject), mean)
+
+tidyData <- aggregate(mergeData, by = list(Activity = mergeData$Activity, Subject = mergeData$Subject), mean)
 tidyData[,90] = NULL
 tidyData[,89] = NULL
 
-write.table(tidyData, "tidy-data.txt", sep="\t")
+write.table(tidyData, "tidy-data.txt", row.name=FALSE)
