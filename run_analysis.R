@@ -62,4 +62,4 @@ tidyData <- aggregate(mergeData, by = list(Activity = mergeData$Activity, Subjec
 tidyData[,90] = NULL
 tidyData[,89] = NULL
 
-write.table(tidyData, "tidy-data.txt", row.name=FALSE)
+write.table(tidyData, "tidy-data.txt", sep="\t", row.name=FALSE)
